@@ -69,7 +69,7 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git add .
         git commit -m "update$(TZ='Asia/Hong_Kong' date "+@%Y-%m-%d %H:%M")" || echo 'Nothing to do.'
-        git push --quiet "https://${{ env.USERNAME }}:${{ env.ACCESS_TOKEN }}@github.com/${{ env.REPONAME }}.git" HEAD:${{ github.event.inputs.BRANCN }} || echo 'Nothing to do.'       
+        git push --quiet "https://${{ env.USERNAME }}:${{ env.ACCESS_TOKEN }}@github.com/${{ env.USERNAME }}/${{ env.REPONAME }}.git" HEAD:${{ github.event.inputs.BRANCN }} || echo 'Nothing to do.'       
 
     - name: SSH connection to Actions
       uses: mxschmitt/action-tmate@v3
