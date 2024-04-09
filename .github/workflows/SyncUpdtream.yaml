@@ -33,7 +33,7 @@ jobs:
       fail-fast: false
 
     steps:
-    - name: checkout
+    - name: Checkout
       uses: actions/checkout@v2
 
     - name: Initialize
