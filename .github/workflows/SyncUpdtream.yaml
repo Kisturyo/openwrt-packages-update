@@ -54,6 +54,7 @@ jobs:
         chmod +x scripts/convert.sh
         chmod +x scripts/upstream_${{ github.event.inputs.BRANCN }}.sh
         git clone -b ${{ github.event.inputs.BRANCN }} https://github.com/${{ env.USERNAME }}/openwrt-packages.git openwrt-packages
+        cd openwrt-packages
         git rm --cache *
         mkdir $GITHUB_WORKSPACE/upstream
         cd $GITHUB_WORKSPACE/upstream
