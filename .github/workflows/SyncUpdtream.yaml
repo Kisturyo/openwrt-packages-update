@@ -1,0 +1,82 @@
+name: Sync upstream
+
+on:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH Debug'
+        required: false
+        default: 'false'
+      BRANCN:
+        description: 'Target branch'
+        required: true
+        type: choice
+        options:
+        - openwrt
+        - immortalwrt
+
+
+        #schedule:
+    #- cron: 0 0 * * *
+
+env:
+  TZ: Asia/Hong_Kong
+  USERNAME: ${{ secrets.USERNAME }}
+  REPONAME: ${{ secrets.REPONAME }}
+  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+
+jobs:
+  update:
+    runs-on: Ubuntu-20.04
+
+    name: Sync to ${{ github.event.inputs.BRANCN }} branch
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: Initialize
+      run : |
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install git subversion git-core wget
+        sudo timedatectl set-timezone "${{ env.TZ }}"
+
+    - name: Install tool
+      run: |
+        git clone --depth=1 https://github.com/VergilGao/po2lmo /tmp/po2lmo
+        cd /tmp/po2lmo
+        make && sudo make install
+
+    - name: Syncing upstream
+      run : |
+        cd $GITHUB_WORKSPACE
+        chmod +x scripts/convert.sh
+        chmod +x scripts/upstream_${{ github.event.inputs.BRANCN }}.sh
+        git clone --depth 1 -b ${{ github.event.inputs.BRANCN }} https://github.com/${{ env.USERNAME }}/${{ env.REPONAME }}.git openwrt-packages
+        git rm --cache *
+        mkdir $GITHUB_WORKSPACE/upstream
+        cd $GITHUB_WORKSPACE/upstream
+        bash $GITHUB_WORKSPACE/scripts/upstream_${{ github.event.inputs.BRANCN }}.sh
+        bash $GITHUB_WORKSPACE/scripts/convert.sh
+        cp -rf * $GITHUB_WORKSPACE/openwrt-packages
+
+    - name: Commit updates
+      run: |
+        cd $GITHUB_WORKSPACE/build/openwrt-packages
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add .
+        git commit -m "update$(TZ='Asia/Hong_Kong' date "+@%Y-%m-%d %H:%M")" || echo 'Nothing to do.'
+        git push --quiet "https://${{ env.USERNAME }}:${{ env.ACCESS_TOKEN }}@github.com/${{ env.REPONAME }}.git" HEAD:${{ github.event.inputs.BRANCN }} || echo 'Nothing to do.'       
+
+    - name: SSH connection to Actions
+      uses: mxschmitt/action-tmate@v3
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+
+    - name: Delete old workflows
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 30
+        
