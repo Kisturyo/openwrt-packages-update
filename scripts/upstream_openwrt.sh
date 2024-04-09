@@ -52,12 +52,11 @@ git clone --depth 1 https://github.com/sirpdboy/luci-app-advancedplus
 git clone --depth 1 https://github.com/sirpdboy/netspeedtest.git
 mv netspeedtest/homebox netspeedtest/luci-app-netspeedtest ./
 rm -rf netspeedtest
-git clone --depth 1 https://github.com/sirpdboy/luci-app-ddns-go
-mv luci-app-ddns-go/*ddns-go ./
-rm -rf luci-app-ddns-go
+git clone --depth 1 https://github.com/sirpdboy/luci-app-ddns-go ddns
+mv ddns/*ddns-go  ./
+rm -rf ddns
 git clone --depth 1 https://github.com/sirpdboy/luci-app-netwizard
 git clone --depth 1 https://github.com/sirpdboy/luci-theme-kucat
-git clone --depth 1 https://github.com/sirpdboy/luci-app-netwizard
 git clone --depth 1 https://github.com/selfcan/luci-app-homebox
 
 # WolPlus
