@@ -22,7 +22,6 @@ on:
 env:
   TZ: Asia/Hong_Kong
   USERNAME: ${{ secrets.USERNAME }}
-  REPONAME: ${{ secrets.REPONAME }}
   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
 jobs:
@@ -54,7 +53,7 @@ jobs:
         cd $GITHUB_WORKSPACE
         chmod +x scripts/convert.sh
         chmod +x scripts/upstream_${{ github.event.inputs.BRANCN }}.sh
-        git clone --depth 1 -b ${{ github.event.inputs.BRANCN }} https://github.com/${{ env.USERNAME }}/${{ env.REPONAME }}.git openwrt-packages
+        git clone -b ${{ github.event.inputs.BRANCN }} https://github.com/${{ env.USERNAME }}/openwrt-packages.git openwrt-packages
         git rm --cache *
         mkdir $GITHUB_WORKSPACE/upstream
         cd $GITHUB_WORKSPACE/upstream
@@ -69,7 +68,7 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git add .
         git commit -m "update$(TZ='Asia/Hong_Kong' date "+@%Y-%m-%d %H:%M")" || echo 'Nothing to do.'
-        git push --quiet "https://${{ env.USERNAME }}:${{ env.ACCESS_TOKEN }}@github.com/${{ env.USERNAME }}/${{ env.REPONAME }}.git" HEAD:${{ github.event.inputs.BRANCN }} || echo 'Nothing to do.'       
+        git push --quiet "https://${{ env.USERNAME }}:${{ env.ACCESS_TOKEN }}@github.com/${{ env.USERNAME }}/openwrt-packages.git" HEAD:${{ github.event.inputs.BRANCN }} || echo 'Nothing to do.'       
 
     - name: SSH connection to Actions
       uses: mxschmitt/action-tmate@v3
