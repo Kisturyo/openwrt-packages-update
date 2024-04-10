@@ -17,14 +17,6 @@ mv net/* ../
 cd ../
 rm -rf immortalwrt-packages
 
-# Packages form Hyy2001X
-git clone --depth 1 --filter=blob:none --sparse https://github.com/Hyy2001X/AutoBuild-Packages Hyy2001X-packages
-cd Hyy2001X-packages
-git sparse-checkout set luci-app-webd webd
-mv luci-app-webd webd ../
-cd ../
-rm -rf Hyy2001X-packages
-
 # Tailscale
 git clone --depth 1 https://github.com/Carseason/openwrt-tailscale
 mv ./openwrt-tailscale/luci-app-tailscaler ./
