@@ -11,7 +11,7 @@ rm -rf openwrt-tailscale
 git clone --depth 1 https://github.com/GinkoCai/luci-theme-argon
 git clone --depth 1 https://github.com/kiddin9/luci-theme-edge
 
-# passwall2
+# passwall
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall/ ./luci-app-passwall
 mv ./luci-app-passwall/luci-app-passwall/* ./luci-app-passwall/
 rm -rf ./luci-app-passwall/luci-app-passwall/
