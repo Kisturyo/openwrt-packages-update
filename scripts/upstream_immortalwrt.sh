@@ -2,14 +2,6 @@
 
 # Packages from ImmortalWrt
 
-# Packages form Hyy2001X
-git clone --depth 1 --filter=blob:none --sparse https://github.com/Hyy2001X/AutoBuild-Packages Hyy2001X-packages
-cd Hyy2001X-packages
-git sparse-checkout set luci-app-webd webd
-mv luci-app-webd webd ../
-cd ../
-rm -rf Hyy2001X-packages
-
 # Tailscale
 git clone --depth 1 https://github.com/Carseason/openwrt-tailscale
 mv ./openwrt-tailscale/luci-app-tailscaler ./
@@ -20,9 +12,9 @@ git clone --depth 1 https://github.com/GinkoCai/luci-theme-argon
 git clone --depth 1 https://github.com/kiddin9/luci-theme-edge
 
 # passwall2
-git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2/ ./luci-app-passwall2
-mv ./luci-app-passwall2/luci-app-passwall2/* ./luci-app-passwall2/
-rm -rf ./luci-app-passwall2/luci-app-passwall2/
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall/ ./luci-app-passwall
+mv ./luci-app-passwall/luci-app-passwall/* ./luci-app-passwall/
+rm -rf ./luci-app-passwall/luci-app-passwall/
 git clone --depth 1 --branch main --filter=blob:none --sparse https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages
 cd openwrt-passwall-packages && git sparse-checkout init --cone
 for i in "xray-core" "sing-box"; do \
