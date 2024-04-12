@@ -18,9 +18,9 @@ cd ../
 rm -rf immortalwrt-packages
 
 # Tailscale
-git clone --depth 1 https://github.com/Carseason/openwrt-tailscale
-mv ./openwrt-tailscale/luci-app-tailscaler ./
-rm -rf openwrt-tailscale
+# git clone --depth 1 https://github.com/Carseason/openwrt-tailscale
+# mv ./openwrt-tailscale/luci-app-tailscaler ./
+# rm -rf openwrt-tailscale
 
 # luci-theme-argon
 git clone --depth 1 https://github.com/GinkoCai/luci-theme-argon
