@@ -1,6 +1,22 @@
 #!/bin/bash
 
-# Packages from ImmortalWrt
+# Packages from ImmortalWrt LuCI Master
+# LuCI
+git clone --depth 1 --filter=blob:none --sparse https://github.com/immortalwrt/luci immortalwrt-luci
+cd immortalwrt-luci
+git sparse-checkout set applications/luci-app-xfrpc
+mv applications/* ../
+cd ../
+rm -rf immortalwrt-luci
+
+# Packages
+git clone --depth 1 --filter=blob:none --sparse https://github.com/immortalwrt/packages immortalwrt-packages
+cd immortalwrt-packages
+git sparse-checkout set lang/golang net/xfrpc net/tailscale
+mv lang/* ../
+mv net/* ../
+cd ../
+rm -rf immortalwrt-packages
 
 # Tailscale
 git clone --depth 1 https://github.com/Carseason/openwrt-tailscale
@@ -12,9 +28,9 @@ git clone --depth 1 https://github.com/GinkoCai/luci-theme-argon
 git clone --depth 1 https://github.com/kiddin9/luci-theme-edge
 
 # passwall
-git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall/ ./luci-app-passwall
-mv ./luci-app-passwall/luci-app-passwall/* ./luci-app-passwall/
-rm -rf ./luci-app-passwall/luci-app-passwall/
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2/ ./luci-app-passwall2
+mv ./luci-app-passwall/luci-app-passwall2/* ./luci-app-passwall2/
+rm -rf ./luci-app-passwall2/luci-app-passwall2/
 git clone --depth 1 --branch main --filter=blob:none --sparse https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages
 cd openwrt-passwall-packages && git sparse-checkout init --cone
 for i in "xray-core" "sing-box"; do \
@@ -32,7 +48,6 @@ git clone --depth 1 https://github.com/sirpdboy/luci-app-ddns-go ddns
 mv ddns/*ddns-go  ./
 rm -rf ddns
 git clone --depth 1 https://github.com/sirpdboy/luci-app-netwizard
-git clone --depth 1 https://github.com/sirpdboy/luci-theme-kucat
 git clone --depth 1 https://github.com/selfcan/luci-app-homebox
 
 # WolPlus

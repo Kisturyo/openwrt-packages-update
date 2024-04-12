@@ -17,3 +17,7 @@ for e in $(ls -d luci-*/po); do
 	    rm -rf $e/zh_tw
 	fi
 done
+
+find ./ -iname Makefile -exec sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#g' {} +
+find ./ -iname Makefile -exec sed -i 's#../../lang/golang/golang-package.mk#$(TOPDIR)/feeds/packages/lang/golang/golang-package.mk#g' {} +
+find ./ -iname tailscale.* -exec sed -i 's#nftables#iptables#g' {} +
