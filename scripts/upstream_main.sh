@@ -18,7 +18,7 @@ cd ../
 rm -rf immortalwrt-packages
 
 # ADGuardHome
-git clone --depth 1 https://github.com/rufengsuixing/luci-app-adguardhome
+git clone --depth 1 https://github.com/chenmozhijin/luci-app-adguardhome
 
 # AutoUpdate
 git clone --depth 1 https://github.com/Hyy2001X/AutoBuild-Packages
